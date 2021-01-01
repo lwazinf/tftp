@@ -4,12 +4,10 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  
-  background-image: linear-gradient(120deg, #9edcfe 0%, #5cc9ff 100%);
 
-  /* background-image: url(/brands.jpg);
-  background-size: 450px;  */
-  background-attachment: fixed;
+  background: rgb(247, 247, 247);
+
+  /* background-image: url(/bg/bg_light.png); */
 }
 
 a {
