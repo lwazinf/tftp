@@ -17,7 +17,7 @@ const Layout = ( { children } ) => {
                 <Image src={"/logo.png"} width={100} height={100} alt={"logo"} />
               </div>
               
-              <div className={styles.menu}>
+              {/* <div className={styles.menu}>
                 <p className={styles.menu_items}>
                   HOME
                 </p>
@@ -27,7 +27,7 @@ const Layout = ( { children } ) => {
                 <p className={styles.menu_items}>
                   COMMUNITY
                 </p>
-              </div>
+              </div> */}
 
               <div className={styles.social}>
               <Image src={"/icons/facebook.png"} width={60} height={60} alt={"facebook"} className={styles.social_items} />
@@ -39,7 +39,7 @@ const Layout = ( { children } ) => {
           <div className={styles.content}>
             { children }
           </div>
-          </div>
+        </div>
      );
 }
  
