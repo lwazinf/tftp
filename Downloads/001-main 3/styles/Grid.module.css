@@ -1,0 +1,65 @@
+._container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 4px;
+    row-gap: 4px;
+  
+    padding: 4px;
+  
+    /* align-content: space-evenly; */
+    align-items: center;
+    /* justify-content: space-evenly; */
+    justify-items: center;
+  
+    transition: all 0.1s;
+  
+    height: 412px;
+    width: 452px;
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  
+    background: ghostwhite;
+    opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    border-radius: 6px;
+  
+    /* margin: 4px; */
+  }
+  
+  ._container::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  
+  ._gridPost {
+    transition: all 0.8s;
+    
+    width: 145px;
+    height: 145px;
+  
+    background: cornflowerblue;
+    border-radius: 2px;
+    
+    cursor: pointer;
+    opacity: 1;
+  }
+  
+  ._gridPost:hover {
+    transition: all 0.1s;
+    opacity: 0.8;
+  }
+
+  ._plus {
+    width: 25px;
+     height: 25px;
+     color: lightgrey;
+     cursor: pointer,
+  }
+
+  ._plus:hover {
+    color:grey
+  }
+
+@media (max-width: 600px) {
+}

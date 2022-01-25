@@ -1,7 +1,13 @@
 import Head from 'next/head'
 import styles from '../styles/Layout.module.css'
+import React, { useContext, useState } from "react";
+import { AppContext } from "../components/Context";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
+    const { modal } = useContext(AppContext);
+
     return (
         <div className={styles.container}>
             <Head>
@@ -10,7 +16,29 @@ const Layout = ({children}) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            { children }
+            {children}
+
+            <div className={styles._modal} style={{ top: modal ? "150px" : "-300px", transition: modal ? 'all 0.5s' : 'all 0.3s' }}>
+                <form>
+                    <input
+                        className='formInputFile'
+                        type='file'
+                        id='images'
+                        max='6'
+                        accept='.jpg,.png,.jpeg'
+                        multiple
+                        required
+                        hidden
+                    />
+                    <label htmlFor='images'>
+                        <div className={styles._plus} style={{ width: '25px', height: '25px', color: 'lightgrey', cursor: 'pointer' }} onClick={() => { }}>
+                            <FontAwesomeIcon icon={faPlusCircle} />
+                        </div>
+                    </label>
+
+                </form>
+
+            </div>
 
         </div>
     );

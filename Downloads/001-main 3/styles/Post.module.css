@@ -21,8 +21,6 @@
   transition: all 0.3s;
 
   opacity: 1;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 ._top {
@@ -151,6 +149,11 @@
 }
 
 ._tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   transition: all 0.1s;
 
   width: 80px;
@@ -166,6 +169,12 @@
 
   background-size: cover;
   background-position: center;
+
+  color: rgb(167, 167, 167);
+  font-size: 12px;
+  text-align: center;
+
+  cursor: pointer;
 }
 
 ._tag:hover {
@@ -174,10 +183,13 @@
   margin: 4.5px;
   width: 79px;
   height: 24px;
+
+  background: lightcyan;
 }
 
 ._tagPlus {
   transition: all 0.1s;
+  cursor: pointer;
 
   width: 25px;
   height: 25px;
@@ -201,6 +213,8 @@
 
   opacity: 1;
   margin: 4.5px;
+
+  color: lightcyan;
 }
 
 @media (max-width: 600px) {
