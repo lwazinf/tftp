@@ -14,10 +14,10 @@ const Post = () => {
   const _postImage = "url(" + fullObject.url + ")";
   let _tags = postTags;
   const [signal, setSignal] = useState(true)
+  const [fav, setFav] = useState(true)
+
 
   const storage = getStorage();
-
-
 
   return (
     <div className={styles._container} style={{
@@ -34,7 +34,8 @@ const Post = () => {
           </div>
           <div className={styles._titleTexts} >
             <p style={{ margin: '0px', padding: '0px', color: 'grey', fontWeight: 'bold', fontSize: '14px' }}>{fullObject.quote}</p>
-            <p style={{ margin: '0px', padding: '0px' }}>Posted on { } ({fullObject.userName})</p>
+            <p style={{ margin: '0px', padding: '0px' }}>Posted on { Object.keys(fullObject).length != 0 ? 
+            `${Date(fullObject.timestamp.seconds).split(' ')[2]} ${Date(fullObject.timestamp.seconds).split(' ')[1]}, ${Date(fullObject.timestamp.seconds).split(' ')[3]}` : '' } ({fullObject.userName})</p>
           </div>
         </div>
         <div className={styles._media} onClick={() => {
@@ -55,13 +56,15 @@ const Post = () => {
           <div className={styles._icon} style={{ marginLeft: '10px', marginTop: '0px', color: 'green' }}>
             <FontAwesomeIcon icon={faCheckCircle} />
           </div>
-          <div className={styles._icon} style={{ marginLeft: '10px', marginTop: '0px', color: 'orangered', cursor: 'pointer' }} >
+          <div className={styles._icon} style={{ marginLeft: '10px', marginTop: '0px', color: fav ? 'orangered' : 'rgb(177, 177, 177)', cursor: 'pointer', transition:  fav ? 'all 1s' : 'all 0.0s' }} onClick={() => {
+            setFav(!fav)
+          }} >
             <FontAwesomeIcon icon={faStar} />
           </div>
           <div className={styles._icon} style={{ marginLeft: '10px', marginTop: '0px', cursor: 'pointer' }}>
             <FontAwesomeIcon icon={faShareSquare} />
           </div>
-          <div className={styles._icon} style={{ marginLeft: 'auto', marginRight: '10px', padding: '1px', marginTop: '-2px', color: 'crimson', cursor: 'pointer' }} onClick={() => {
+          <div className={styles._icon} style={{ marginLeft: 'auto', marginRight: '10px', padding: '1px', marginTop: '-2px', color: 'crimson', cursor: 'pointer', opacity: '0.4' }} onClick={() => {
 
             deleteObject(
               ref(storage, fullObject.url)
@@ -125,11 +128,16 @@ const Post = () => {
             </div>
           ))
         }
-        <div className={styles._tagPlus} onClick={() => {
+        {
+          postTags.length === 3 ?
+          <></>
+          :
+          <div className={styles._tagPlus} onClick={() => {
 
         }} >
           <FontAwesomeIcon icon={faPlusCircle} />
         </div>
+        }
       </div>
 
     </div>
