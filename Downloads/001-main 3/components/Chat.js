@@ -1,13 +1,16 @@
 import styles from '../styles/Chat.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCog } from '@fortawesome/free-solid-svg-icons'
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile,
+  signOut
 } from 'firebase/auth'
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
 import OAuth from './OAuth'
 
 import React, { useContext, useState } from "react";
@@ -22,6 +25,8 @@ function Chat() {
     password: '',
   })
   const { name, email, password } = formData
+  // const navigate = useNavigate()
+  const auth = getAuth()
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -33,53 +38,79 @@ function Chat() {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      const auth = getAuth()
+    if (authType == false) {
+      try {
+        // const auth = getAuth()
 
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      )
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        )
 
-      const user = userCredential.user
+        const user = userCredential.user
 
-      updateProfile(auth.currentUser, {
-        displayName: name,
-      })
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
 
-      const formDataCopy = { ...formData }
-      delete formDataCopy.password
-      formDataCopy.timestamp = serverTimestamp()
+        const formDataCopy = { ...formData }
+        delete formDataCopy.password
+        delete formDataCopy.passwordConfirm
+        formDataCopy.timestamp = serverTimestamp()
 
-      await setDoc(doc(db, 'users', user.uid), formDataCopy)
+        await setDoc(doc(db, 'users', user.uid), formDataCopy)
+        // navigate('/')
+      } catch (error) {
+        console.log(error)
+      }
+      setTray(!tray)
+    } else {
+      try {
+        // const auth = getAuth()
 
-      navigate('/')
-    } catch (error) {
-      toast.error('Something went wrong with registration')
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        )
+
+        if (userCredential.user) {
+          // navigate('/')
+          console.log('Login Successful')
+        }
+      } catch (error) {
+        // toast.error('Bad User Credentials')
+      }
+      setTray(!tray)
     }
+
   }
   return (
     <div className={styles._blank}>
-      <div className={styles._tray} style={{ left: tray ? '405px' : '0px' }} onClick={() => {
+      <div className={styles._tray} style={{ left: tray ? '405px' : '0px', background: formData.email.includes('@') ? 'crimson' : 'ghostwhite' }} onClick={() => {
         setTray(!tray)
+        if (formData.email.includes('@')) {
+          const auth = getAuth();
+          signOut(auth).then(() => {
+            console.log('Sign-out successful.')
+          }).catch((error) => {
+            // An error happened.
+          });
+        }
       }}>
-        <FontAwesomeIcon icon={faUser} />
+        <FontAwesomeIcon icon={formData.email.includes('@') ? faCog : faUser} />
       </div>
       <div className={styles._container} style={{ width: tray ? '402px' : '0px' }}>
         <div className={styles._formCase}>
-          {/* {
-            authType
-              ?
-              <p style={{ fontSize: '23px', padding: '0px', margin: '0px', color: 'black', marginLeft: '5px', marginBottom: '10px', fontWeight: '700' }}>Login</p>
-              :
-              <p style={{ fontSize: '23px', padding: '0px', margin: '0px', color: 'black', marginLeft: '5px', marginBottom: '10px', fontWeight: '700' }}>Sign Up</p>
-          } */}
-          <form className={styles._form}>
-            <input type='email' className={styles._textInput} placeholder='Email' onChange={() => { }} />
-            <input type='password' className={styles._textInput} placeholder='Password' onChange={() => { }} />
+          <form className={styles._form} onSubmit={onSubmit}>
+            <input style={{ borderBottomLeftRadius: '0px', borderBottomRightRadius: '0px', padding: '0px', margin: '0px', height: authType ? '0px' : '35px', opacity: authType ? '0' : '1', transition: 'all 0.4s', pointerEvents: authType ? 'none' : 'auto' }} type='text' className={styles._textInput} placeholder='Full Name' id='name' onChange={onChange} />
 
-            <input style={{ padding: '0px', margin: '0px', height: authType ? '0px' : '35px', opacity: authType ? '0' : '1', transition: 'all 0.4s', pointerEvents: authType ? 'none' : 'auto' }} type='password' className={styles._textInput} placeholder='Re-type password' onChange={() => { }} />
+            <input type='email' id='email' className={styles._textInput} style={{ transition: 'all 0.5s', borderTopLeftRadius: authType ? '3px' : '0px', borderTopRightRadius: authType ? '3px' : '0px', padding: '0px', marginTop: authType ? '6px' : '0px' }} placeholder='Email' onChange={onChange} />
+
+            <input type='password' id='password' className={styles._textInput} style={{ transition: 'all 0.5s', borderBottomLeftRadius: authType ? '3px' : '0px', borderBottomRightRadius: authType ? '3px' : '0px', padding: '0px', marginBottom: authType ? '6px' : '0px' }} placeholder='Password' onChange={onChange} />
+
+            <input style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px', padding: '0px', margin: '0px', height: authType ? '0px' : '35px', opacity: authType ? '0' : '1', transition: 'all 0.4s', pointerEvents: authType ? 'none' : 'auto' }} type='password' className={styles._textInput} placeholder='Re-type password' id='passwordConfirm' onChange={onChange} />
 
             <input type='submit' className={styles._buttonInput} value={authType ? 'Login' : 'Sign Up'} onClick={() => { }} />
             {
@@ -100,6 +131,7 @@ function Chat() {
                   }}>Login</p>
                 </div>
             }
+            { auth.user }
           </form>
         </div>
       </div >
