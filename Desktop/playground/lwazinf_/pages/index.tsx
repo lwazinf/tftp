@@ -111,8 +111,12 @@ const Home: NextPage = () => {
           Attachments
         </p>
         <div
-          className={`w-full h-[100px] border-[1px] border-dashed border-[#e7e7e7] bg-[#f7f7f7] rounded-[4px] mb-1`}
-        />
+          className={`w-full h-[100px] border-[1px] relative border-dashed border-black/10 hover:border-black/30 bg-[#f7f7f7] rounded-[4px] mb-1 transition-all duration-[800ms]`}
+        >
+          <div className={`absolute top-0 right-0 flex flex-row justify-center items-center w-full h-full opacity-5 hover:opacity-10  transition-all duration-[2000ms]`}>
+          <img src={`/assets/images/LwaziNF.png`} className={`w-[70px] object-cover cursor-pointer`}/>
+        </div>
+        </div>
         <div className={`w-full h-[40px] rounded-[6px] shadow-sm bg-[#0084ff] hover:bg-[#0076e3] transition-all duration-500 my-2 flex flex-col justify-center items-center cursor-pointer`}>
         <p
             className={`font-light min-w-[50px] text-[16px] text-white`}
