@@ -44,7 +44,7 @@ const Home: NextPage = () => {
           >
             <div className={`w-[285px] h-[50px] flex flex-row`}>
               <p className={`text-[14px] text-black/80 font-medium`}>
-                What style of she are you into? A favorite colour maybe?!
+                What style of shoe are you into? A favorite colour maybe?!
               </p>
             </div>
             <div
