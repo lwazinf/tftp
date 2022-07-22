@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const nodeState = atom({
-  key: "nodeState",
-  default: false,
+export const commentState = atom({
+  key: "commentState",
+  default: true,
 });
