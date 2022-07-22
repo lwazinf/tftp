@@ -6,6 +6,9 @@
     body {
         background: #e8eaee;
     }
+    scrollbar { 
+      display: none; 
+      }
 }
 
 @layer components {
