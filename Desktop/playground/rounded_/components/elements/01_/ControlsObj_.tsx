@@ -13,7 +13,7 @@ interface ControlsObj_Props {}
 
 const ControlsObj_ = ({}: ControlsObj_Props) => {
   const [heart_, setHeart_] = useState(false);
-  const [cart_, setCart_] = useState(false);
+  const [cart_, setCart_] = useState(true);
   const [comment_, setComment_] = useRecoilState(commentState);
   return (
     <div
@@ -69,7 +69,13 @@ const ControlsObj_ = ({}: ControlsObj_Props) => {
             ? "pointer-events-auto opacity-100 top-[38px] left-[70px]"
             : "pointer-events-none opacity-0 top-[38px] left-[50px]"
         }`}
-      ></div>
+      >
+        <div className={`w-[60px] h-[20px] rounded-[2px] absolute bottom-2 right-2 flex justify-center items-center bg-white hover:bg-lime-200 transition-all duration-300 opacity-70 hover:opacity-100 cursor-pointer`}>
+          <p className={`mx-auto text-[11px] font-light text-black/80`}>
+            Buy Now
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

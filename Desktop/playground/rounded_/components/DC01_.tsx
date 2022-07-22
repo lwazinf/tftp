@@ -1,7 +1,7 @@
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
-import { TwitterShareButton } from "react-twitter-embed";
+import { TwitterShareButton } from "react-share";
 import { useRecoilState } from "recoil";
 import { commentState } from "./atoms/atoms";
 import CommentObj_ from "./elements/01_/CommentObj_";
@@ -33,11 +33,6 @@ const DC01_ = ({}: DC01_Props) => {
   };
   const inputFile = useRef(null);
 
-  const onButtonClick = () => {
-    // `current` points to the mounted file input element
-   inputFile.current.click();
-  };
-
   return (
     <div
       className={`h-[50px] w-[800px] flex flex-col items-center justify-center relative`}
@@ -57,6 +52,8 @@ const DC01_ = ({}: DC01_Props) => {
           type="file"
           id="file"
           ref={inputFile}
+          onChange={() => {
+          }}
           style={{ display: "none" }}
         />
         <div
@@ -125,13 +122,21 @@ const DC01_ = ({}: DC01_Props) => {
             <div
               className={`w-[20px] relative right-[50px] top-[5px] opacity-70`}
             >
+              <TwitterShareButton
+        title={"Check this #design out.. view more on"}
+        url={"https://lwazinf.com"}
+        hashtags={[]}
+        via="LwaziNF"
+      >
+        
               <FontAwesomeIcon
                 icon={faShare}
                 className={`h-[14px] w-[14px] text-gray-500/50 relative right-[-50px] bottom-[0px] transition-all duration-500 hover:text-gray-500 cursor-pointer`}
                 onClick={() => {}}
-              />
+                />
+                </TwitterShareButton>
               <div className={`hidden absolute top-0`} id="twitterButton">
-                <TwitterShareButton
+                {/* <TwitterShareButton
                   onLoad={() => {}}
                   options={{
                     buttonHashtag: undefined,
@@ -142,15 +147,15 @@ const DC01_ = ({}: DC01_Props) => {
                   }}
                   placeholder={
                     <div>
-                      {/* <FontAwesomeIcon
+                      <FontAwesomeIcon
                     icon={faShare}
                     className={`h-[14px] w-[14px] text-gray-500/50 transition-all duration-500 hover:text-gray-500 my-1 relative right-[-1.5px] bottom-[-4px] cursor-pointer`}
                     onClick={() => {}}
-                  /> */}
+                  />
                     </div>
                   }
                   url="https://lwazinf.com"
-                />
+                /> */}
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ const CommentObj_ = ({}: CommentObj_Props) => {
   return (
     <div className={`flex flex-col relative right-[70px] mb-[10px]`}>
       <div
-        className={`w-[400px] h-[80px] bg-white hover:bg-orange-50 mb-[6px] ${
+        className={`w-[400px] h-[80px] bg-white hover:bg-white mb-[6px] ${
           comment_
             ? "pointer-events-auto opacity-100 top-2"
             : "pointer-events-none opacity-0 top-[-15px]"
