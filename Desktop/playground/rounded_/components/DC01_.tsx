@@ -1,6 +1,6 @@
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { TwitterShareButton } from "react-share";
 import { useRecoilState } from "recoil";
 import { commentState } from "./atoms/atoms";
@@ -25,6 +25,7 @@ const DC01_ = ({}: DC01_Props) => {
     "December",
   ];
   const [comments_, setComments_] = useRecoilState(commentState);
+  const [images_, setImages_] = useState<any>();
   const start = new Date();
   const start_ = {
     month: month[start.getMonth()],
@@ -32,6 +33,11 @@ const DC01_ = ({}: DC01_Props) => {
     year: start.getFullYear(),
   };
   const inputFile = useRef(null);
+
+  const onSelectFile = (e: { target: { files: any } }) => {
+    const selectedFile = e.target.files;
+    setImages_(selectedFile[0]);
+  };
 
   return (
     <div
@@ -52,19 +58,24 @@ const DC01_ = ({}: DC01_Props) => {
           type="file"
           id="file"
           ref={inputFile}
-          onChange={() => {
-          }}
+          onChange={onSelectFile}
+          accept="image/png, image/jpeg, image/webp"
           style={{ display: "none" }}
         />
         <div
-          className={`w-[250px] h-full rounded-lg overflow-hidden cursor-pointer`}
+          className={`w-[250px] h-[170px] rounded-lg overflow-hidden cursor-pointer`}
           onClick={() => {
+            // @ts-ignore
             inputFile.current.click();
           }}
         >
           <img
-            src={`https://images.pexels.com/photos/267301/pexels-photo-267301.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-            className={`h-full object-cover opacity-100 hover:opacity-80 transition-all duration-500`}
+            src={`${
+              images_
+                ? URL.createObjectURL(images_)
+                : "https://images.pexels.com/photos/267301/pexels-photo-267301.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            }`}
+            className={`w-full h-full object-cover opacity-100 hover:opacity-80 transition-all duration-500`}
           />
         </div>
         <div
@@ -123,18 +134,18 @@ const DC01_ = ({}: DC01_Props) => {
               className={`w-[20px] relative right-[50px] top-[5px] opacity-70`}
             >
               <TwitterShareButton
-        title={"Check this #design out.. view more on"}
-        url={"https://lwazinf.com"}
-        hashtags={[]}
-        via="LwaziNF"
-      >
-        
-              <FontAwesomeIcon
-                icon={faShare}
-                className={`h-[14px] w-[14px] text-gray-500/50 relative right-[-50px] bottom-[0px] transition-all duration-500 hover:text-gray-500 cursor-pointer`}
-                onClick={() => {}}
+                title={
+                  "Send @LwaziNF a DM with your ideas.. Build your brand site online today!"
+                }
+                url={"http://lwazinf.com"}
+                hashtags={[]}
+              >
+                <FontAwesomeIcon
+                  icon={faShare}
+                  className={`h-[14px] w-[14px] text-gray-500/50 relative right-[-50px] bottom-[0px] transition-all duration-500 hover:text-gray-500 cursor-pointer`}
+                  onClick={() => {}}
                 />
-                </TwitterShareButton>
+              </TwitterShareButton>
               <div className={`hidden absolute top-0`} id="twitterButton">
                 {/* <TwitterShareButton
                   onLoad={() => {}}

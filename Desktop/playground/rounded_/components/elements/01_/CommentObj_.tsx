@@ -10,7 +10,7 @@ interface CommentObj_Props {}
 const CommentObj_ = ({}: CommentObj_Props) => {
   const [reply_, setReply_] = useState(false);
   const [like_, setLike_] = useState(false);
-  let [objects_, setObjects_] = useState<string[]>([]);
+  let [objects_, setObjects_] = useState<string[]>([""]);
   const [comment_, setComment_] = useRecoilState(commentState);
   return (
     <div className={`flex flex-col relative right-[70px] mb-[10px]`}>

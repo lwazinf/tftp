@@ -70,8 +70,8 @@ const ControlsObj_ = ({}: ControlsObj_Props) => {
             : "pointer-events-none opacity-0 top-[38px] left-[50px]"
         }`}
       >
-        <div className={`w-[60px] h-[20px] rounded-[2px] absolute bottom-2 right-2 flex justify-center items-center bg-white hover:bg-lime-200 transition-all duration-300 opacity-70 hover:opacity-100 cursor-pointer`}>
-          <p className={`mx-auto text-[11px] font-light text-black/80`}>
+        <div className={`w-[60px] h-[20px] rounded-[2px] absolute bottom-2 right-2 flex justify-center items-center bg-white transition-all duration-300 opacity-70 hover:opacity-100 cursor-pointer`}>
+          <p className={`mx-auto text-[11px] font-normal text-black/80`}>
             Buy Now
           </p>
         </div>
